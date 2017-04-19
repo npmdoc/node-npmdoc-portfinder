@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "portfinder",
-    "description": "api documentation for [portfinder (v1.0.13)](https://github.com/indexzero/node-portfinder#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-portfinder.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-portfinder) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-portfinder.svg)](https://travis-ci.org/npmdoc/node-npmdoc-portfinder)",
+    "description": "#### api documentation for  [portfinder (v1.0.13)](https://github.com/indexzero/node-portfinder#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-portfinder.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-portfinder) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-portfinder.svg)](https://travis-ci.org/npmdoc/node-npmdoc-portfinder)",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "portfinder": "*",
@@ -36,5 +36,5 @@
         "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
         "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
