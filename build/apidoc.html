@@ -123,6 +123,12 @@
 
         <li>
 
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan"></span>portfinder</span>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">portfinder.</span>_defaultHosts</span>
 
         </li>
@@ -130,6 +136,82 @@
         <li>
 
             <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">portfinder.</span>basePath</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.portfinder.portfinder">module portfinder.portfinder</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.portfinder.portfinder.getPort">
+            function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getPort
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.portfinder.portfinder.getPortPromise">
+            function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getPortPromise
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.portfinder.portfinder.getPorts">
+            function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getPorts
+            <span class="apidocSignatureSpan">(count, options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.portfinder.portfinder.getSocket">
+            function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getSocket
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.portfinder.portfinder.nextPort">
+            function <span class="apidocSignatureSpan">portfinder.portfinder.</span>nextPort
+            <span class="apidocSignatureSpan">(port)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.portfinder.portfinder.nextSocket">
+            function <span class="apidocSignatureSpan">portfinder.portfinder.</span>nextSocket
+            <span class="apidocSignatureSpan">(socketPath)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">portfinder.portfinder.</span>basePort</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">portfinder.portfinder.</span>_defaultHosts</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">portfinder.portfinder.</span>basePath</span>
 
         </li>
 
@@ -415,7 +497,23 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
     ? testSocket()
     : checkAndTestSocket();
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    }
+    else {
+      //
+      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // next socket.
+      //
+      options.path = exports.nextSocket(options.path);
+      exports.<span class="apidocCodeKeywordSpan">getSocket</span>(options, callback);
+    }
+  });
+}
+
+//
+// Create the target `dir` then test connection
+// against the socket.
+...</pre></li>
     </ul>
 
 
@@ -430,7 +528,23 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
     <li>description and source-code<pre class="apidocCodePre">nextPort = function (port) {
   return port + 1;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  options.server.removeListener(&#x27;listening&#x27;, onListen);
+
+  if (err.code !== &#x27;EADDRINUSE&#x27; &#x26;&#x26; err.code !== &#x27;EACCES&#x27;) {
+    return callback(err);
+  }
+
+  internals.testPort({
+    port: exports.<span class="apidocCodeKeywordSpan">nextPort</span>(options.port),
+    host: options.host,
+    server: options.server
+  }, callback);
+}
+
+options.server.once(&#x27;error&#x27;, onError);
+options.server.once(&#x27;listening&#x27;, onListen);
+...</pre></li>
     </ul>
 
 
@@ -456,7 +570,404 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   index += 1;
   return path.join(dir, base + index + &#x27;.sock&#x27;);
 }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }
+    }
+    else {
+      //
+      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // next socket.
+      //
+      options.path = exports.<span class="apidocCodeKeywordSpan">nextSocket</span>(options.path);
+      exports.getSocket(options, callback);
+    }
+  });
+}
+
+//
+// Create the target `dir` then test connection
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.portfinder.portfinder" id="apidoc.module.portfinder.portfinder">module portfinder.portfinder</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.portfinder.portfinder.getPort" id="apidoc.element.portfinder.portfinder.getPort">
+        function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getPort
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getPort = function (options, callback) {
+  if (!callback) {
+    callback = options;
+    options = {};
+  }
+
+  if (options.host) {
+
+    var hasUserGivenHost;
+    for (var i = 0; i &#x3c; exports._defaultHosts.length; i++) {
+      if (exports._defaultHosts[i] === options.host) {
+        hasUserGivenHost = true;
+        break;
+      }
+    }
+
+    if (!hasUserGivenHost) {
+      exports._defaultHosts.push(options.host);
+    }
+
+  }
+
+  var openPorts = [], currentHost;
+  return async.eachSeries(exports._defaultHosts, function(host, next) {
+    debugGetPort(&#x22;in eachSeries() iteration callback: host is&#x22;, host);
+
+    return internals.testPort({ host: host, port: options.port }, function(err, port) {
+      if (err) {
+        debugGetPort(&#x22;in eachSeries() iteration callback testPort() callback&#x22;, &#x22;with an err:&#x22;, err.code);
+        currentHost = host;
+        return next(err);
+      } else {
+        debugGetPort(&#x22;in eachSeries() iteration callback testPort() callback&#x22;,
+                    &#x22;with a success for port&#x22;, port);
+        openPorts.push(port);
+        return next();
+      }
+    });
+  }, function(err) {
+
+    if (err) {
+      debugGetPort(&#x22;in eachSeries() result callback: err is&#x22;, err);
+      // If we get EADDRNOTAVAIL it means the host is not bindable, so remove it
+      // from exports._defaultHosts and start over. For ubuntu, we use EINVAL for the same
+      if (err.code === &#x27;EADDRNOTAVAIL&#x27; || err.code === &#x27;EINVAL&#x27;) {
+        if (options.host === currentHost) {
+          // if bad address matches host given by user, tell them
+          //
+          // NOTE: We may need to one day handle `my-non-existent-host.local` if users
+          // report frustration with passing in hostnames that DONT map to bindable
+          // hosts, without showing them a good error.
+          var msg = &#x27;Provided host &#x27; + options.host + &#x27; could NOT be bound. Please provide a different host address or hostname&#x27;;
+          return callback(Error(msg));
+        }
+
+        var idx = exports._defaultHosts.indexOf(currentHost);
+        exports._defaultHosts.splice(idx, 1);
+        return exports.getPort(options, callback);
+      } else {
+        // error is not accounted for, file ticket, handle special case
+        return callback(err);
+      }
+    }
+
+    // sort so we can compare first host to last host
+    openPorts.sort(function(a, b) {
+      return a - b;
+    });
+
+    debugGetPort(&#x22;in eachSeries() result callback: openPorts is&#x22;, openPorts);
+
+    if (openPorts[0] === openPorts[openPorts.length-1]) {
+      // if first === last, we found an open port
+      return callback(null, openPorts[0]);
+    } else {
+      // otherwise, try again, using sorted port, aka, highest open for &#x3e;= 1 host
+      return exports.getPort({ port: openPorts.pop(), host: options.host }, callback);
+    }
+
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+## Usage
+The `portfinder` module has a simple interface:
+
+``` js
+  var portfinder = require(&#x27;portfinder&#x27;);
+
+  portfinder.<span class="apidocCodeKeywordSpan">getPort</span>(function (err, port) {
+    //
+    // `port` is guaranteed to be a free port
+    // in this scope.
+    //
+  });
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.portfinder.portfinder.getPortPromise" id="apidoc.element.portfinder.portfinder.getPortPromise">
+        function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getPortPromise
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getPortPromise = function (options) {
+  if (typeof Promise !== &#x27;function&#x27;) {
+    throw Error(&#x27;Native promise support is not available in this version of node.&#x27; +
+      &#x27;Please install a polyfill and assign Promise to global.Promise before calling this method&#x27;);
+  }
+  if (!options) {
+    options = {};
+  }
+  return new Promise(function(resolve, reject) {
+    exports.getPort(options, function(err, port) {
+      if (err) {
+        return reject(err);
+      }
+      resolve(port);
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+
+Or with promise (if Promise are supported) :
+
+``` js
+const portfinder = require(&#x27;portfinder&#x27;);
+
+portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
+  .then((port) =&#x3e; {
+      //
+      // `port` is guaranteed to be a free port
+      // in this scope.
+      //
+  })
+  .catch((err) =&#x3e; {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.portfinder.portfinder.getPorts" id="apidoc.element.portfinder.portfinder.getPorts">
+        function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getPorts
+        <span class="apidocSignatureSpan">(count, options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getPorts = function (count, options, callback) {
+  if (!callback) {
+    callback = options;
+    options = {};
+  }
+
+  var lastPort = null;
+  async.timesSeries(count, function(index, asyncCallback) {
+    if (lastPort) {
+      options.port = exports.nextPort(lastPort);
+    }
+
+    exports.getPort(options, function (err, port) {
+      if (err) {
+        asyncCallback(err);
+      } else {
+        lastPort = port;
+        asyncCallback(null, port);
+      }
+    });
+  }, callback);
+}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.portfinder.portfinder.getSocket" id="apidoc.element.portfinder.portfinder.getSocket">
+        function <span class="apidocSignatureSpan">portfinder.portfinder.</span>getSocket
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getSocket = function (options, callback) {
+  if (!callback) {
+    callback = options;
+    options = {};
+  }
+
+  options.mod  = options.mod    || parseInt(755, 8);
+  options.path = options.path   || exports.basePath + &#x27;.sock&#x27;;
+
+  //
+  // Tests the specified socket
+  //
+  function testSocket () {
+    fs.stat(options.path, function (err) {
+      //
+      // If file we&#x27;re checking doesn&#x27;t exist (thus, stating it emits ENOENT),
+      // we should be OK with listening on this socket.
+      //
+      if (err) {
+        if (err.code == &#x27;ENOENT&#x27;) {
+          callback(null, options.path);
+        }
+        else {
+          callback(err);
+        }
+      }
+      else {
+        //
+        // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+        // next socket.
+        //
+        options.path = exports.nextSocket(options.path);
+        exports.getSocket(options, callback);
+      }
+    });
+  }
+
+  //
+  // Create the target `dir` then test connection
+  // against the socket.
+  //
+  function createAndTestSocket (dir) {
+    mkdirp(dir, options.mod, function (err) {
+      if (err) {
+        return callback(err);
+      }
+
+      options.exists = true;
+      testSocket();
+    });
+  }
+
+  //
+  // Check if the parent directory of the target
+  // socket path exists. If it does, test connection
+  // against the socket. Otherwise, create the directory
+  // then test connection.
+  //
+  function checkAndTestSocket () {
+    var dir = path.dirname(options.path);
+
+    fs.stat(dir, function (err, stats) {
+      if (err || !stats.isDirectory()) {
+        return createAndTestSocket(dir);
+      }
+
+      options.exists = true;
+      testSocket();
+    });
+  }
+
+  //
+  // If it has been explicitly stated that the
+  // target `options.path` already exists, then
+  // simply test the socket.
+  //
+  return options.exists
+    ? testSocket()
+    : checkAndTestSocket();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    }
+    else {
+      //
+      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // next socket.
+      //
+      options.path = exports.nextSocket(options.path);
+      exports.<span class="apidocCodeKeywordSpan">getSocket</span>(options, callback);
+    }
+  });
+}
+
+//
+// Create the target `dir` then test connection
+// against the socket.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.portfinder.portfinder.nextPort" id="apidoc.element.portfinder.portfinder.nextPort">
+        function <span class="apidocSignatureSpan">portfinder.portfinder.</span>nextPort
+        <span class="apidocSignatureSpan">(port)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">nextPort = function (port) {
+  return port + 1;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  options.server.removeListener(&#x27;listening&#x27;, onListen);
+
+  if (err.code !== &#x27;EADDRINUSE&#x27; &#x26;&#x26; err.code !== &#x27;EACCES&#x27;) {
+    return callback(err);
+  }
+
+  internals.testPort({
+    port: exports.<span class="apidocCodeKeywordSpan">nextPort</span>(options.port),
+    host: options.host,
+    server: options.server
+  }, callback);
+}
+
+options.server.once(&#x27;error&#x27;, onError);
+options.server.once(&#x27;listening&#x27;, onListen);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.portfinder.portfinder.nextSocket" id="apidoc.element.portfinder.portfinder.nextSocket">
+        function <span class="apidocSignatureSpan">portfinder.portfinder.</span>nextSocket
+        <span class="apidocSignatureSpan">(socketPath)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">nextSocket = function (socketPath) {
+  var dir = path.dirname(socketPath),
+      name = path.basename(socketPath, &#x27;.sock&#x27;),
+      match = name.match(/^([a-zA-z]+)(\d*)$/i),
+      index = parseInt(match[2]),
+      base = match[1];
+
+  if (isNaN(index)) {
+    index = 0;
+  }
+
+  index += 1;
+  return path.join(dir, base + index + &#x27;.sock&#x27;);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }
+    }
+    else {
+      //
+      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // next socket.
+      //
+      options.path = exports.<span class="apidocCodeKeywordSpan">nextSocket</span>(options.path);
+      exports.getSocket(options, callback);
+    }
+  });
+}
+
+//
+// Create the target `dir` then test connection
+...</pre></li>
     </ul>
 
 

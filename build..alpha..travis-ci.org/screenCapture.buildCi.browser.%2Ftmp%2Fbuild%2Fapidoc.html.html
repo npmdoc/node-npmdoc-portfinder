@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/indexzero/node-portfinder#readme"
-
-    >portfinder (v1.0.13)</a>
+    <a href="https://github.com/indexzero/node-portfinder#readme">portfinder (v1.0.13)</a>
 </h1>
 <h4>A simple tool to find an open port on the current machine</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.portfinder">module portfinder</a><ol>
 
@@ -239,7 +232,7 @@
   if (options.host) {
 
     var hasUserGivenHost;
-    for (var i = 0; i &#x3c; exports._defaultHosts.length; i++) {
+    for (var i = 0; i &lt; exports._defaultHosts.length; i++) {
       if (exports._defaultHosts[i] === options.host) {
         hasUserGivenHost = true;
         break;
@@ -254,16 +247,16 @@
 
   var openPorts = [], currentHost;
   return async.eachSeries(exports._defaultHosts, function(host, next) {
-    debugGetPort(&#x22;in eachSeries() iteration callback: host is&#x22;, host);
+    debugGetPort("in eachSeries() iteration callback: host is", host);
 
     return internals.testPort({ host: host, port: options.port }, function(err, port) {
       if (err) {
-        debugGetPort(&#x22;in eachSeries() iteration callback testPort() callback&#x22;, &#x22;with an err:&#x22;, err.code);
+        debugGetPort("in eachSeries() iteration callback testPort() callback", "with an err:", err.code);
         currentHost = host;
         return next(err);
       } else {
-        debugGetPort(&#x22;in eachSeries() iteration callback testPort() callback&#x22;,
-                    &#x22;with a success for port&#x22;, port);
+        debugGetPort("in eachSeries() iteration callback testPort() callback",
+                    "with a success for port", port);
         openPorts.push(port);
         return next();
       }
@@ -271,17 +264,17 @@
   }, function(err) {
 
     if (err) {
-      debugGetPort(&#x22;in eachSeries() result callback: err is&#x22;, err);
+      debugGetPort("in eachSeries() result callback: err is", err);
       // If we get EADDRNOTAVAIL it means the host is not bindable, so remove it
       // from exports._defaultHosts and start over. For ubuntu, we use EINVAL for the same
-      if (err.code === &#x27;EADDRNOTAVAIL&#x27; || err.code === &#x27;EINVAL&#x27;) {
+      if (err.code === 'EADDRNOTAVAIL' || err.code === 'EINVAL') {
         if (options.host === currentHost) {
           // if bad address matches host given by user, tell them
           //
           // NOTE: We may need to one day handle `my-non-existent-host.local` if users
           // report frustration with passing in hostnames that DONT map to bindable
           // hosts, without showing them a good error.
-          var msg = &#x27;Provided host &#x27; + options.host + &#x27; could NOT be bound. Please provide a different host address or hostname&#x27;;
+          var msg = 'Provided host ' + options.host + ' could NOT be bound. Please provide a different host address or hostname';
           return callback(Error(msg));
         }
 
@@ -299,13 +292,13 @@
       return a - b;
     });
 
-    debugGetPort(&#x22;in eachSeries() result callback: openPorts is&#x22;, openPorts);
+    debugGetPort("in eachSeries() result callback: openPorts is", openPorts);
 
     if (openPorts[0] === openPorts[openPorts.length-1]) {
       // if first === last, we found an open port
       return callback(null, openPorts[0]);
     } else {
-      // otherwise, try again, using sorted port, aka, highest open for &#x3e;= 1 host
+      // otherwise, try again, using sorted port, aka, highest open for &gt;= 1 host
       return exports.getPort({ port: openPorts.pop(), host: options.host }, callback);
     }
 
@@ -317,7 +310,7 @@
 The `portfinder` module has a simple interface:
 
 ``` js
-  var portfinder = require(&#x27;portfinder&#x27;);
+  var portfinder = require('portfinder');
 
   portfinder.<span class="apidocCodeKeywordSpan">getPort</span>(function (err, port) {
     //
@@ -339,9 +332,9 @@ The `portfinder` module has a simple interface:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getPortPromise = function (options) {
-  if (typeof Promise !== &#x27;function&#x27;) {
-    throw Error(&#x27;Native promise support is not available in this version of node.&#x27; +
-      &#x27;Please install a polyfill and assign Promise to global.Promise before calling this method&#x27;);
+  if (typeof Promise !== 'function') {
+    throw Error('Native promise support is not available in this version of node.' +
+      'Please install a polyfill and assign Promise to global.Promise before calling this method');
   }
   if (!options) {
     options = {};
@@ -361,16 +354,16 @@ The `portfinder` module has a simple interface:
 Or with promise (if Promise are supported) :
 
 ``` js
-const portfinder = require(&#x27;portfinder&#x27;);
+const portfinder = require('portfinder');
 
 portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
-  .then((port) =&#x3e; {
+  .then((port) =&gt; {
       //
       // `port` is guaranteed to be a free port
       // in this scope.
       //
   })
-  .catch((err) =&#x3e; {
+  .catch((err) =&gt; {
 ...</pre></li>
     </ul>
 
@@ -424,7 +417,7 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   }
 
   options.mod  = options.mod    || parseInt(755, 8);
-  options.path = options.path   || exports.basePath + &#x27;.sock&#x27;;
+  options.path = options.path   || exports.basePath + '.sock';
 
   //
   // Tests the specified socket
@@ -432,11 +425,11 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   function testSocket () {
     fs.stat(options.path, function (err) {
       //
-      // If file we&#x27;re checking doesn&#x27;t exist (thus, stating it emits ENOENT),
+      // If file we're checking doesn't exist (thus, stating it emits ENOENT),
       // we should be OK with listening on this socket.
       //
       if (err) {
-        if (err.code == &#x27;ENOENT&#x27;) {
+        if (err.code == 'ENOENT') {
           callback(null, options.path);
         }
         else {
@@ -445,7 +438,7 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
       }
       else {
         //
-        // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+        // This file exists, so it isn't possible to listen on it. Lets try
         // next socket.
         //
         options.path = exports.nextSocket(options.path);
@@ -501,7 +494,7 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
     }
     else {
       //
-      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // This file exists, so it isn't possible to listen on it. Lets try
       // next socket.
       //
       options.path = exports.nextSocket(options.path);
@@ -529,9 +522,9 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   return port + 1;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  options.server.removeListener(&#x27;listening&#x27;, onListen);
+  options.server.removeListener('listening', onListen);
 
-  if (err.code !== &#x27;EADDRINUSE&#x27; &#x26;&#x26; err.code !== &#x27;EACCES&#x27;) {
+  if (err.code !== 'EADDRINUSE' &amp;&amp; err.code !== 'EACCES') {
     return callback(err);
   }
 
@@ -542,8 +535,8 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   }, callback);
 }
 
-options.server.once(&#x27;error&#x27;, onError);
-options.server.once(&#x27;listening&#x27;, onListen);
+options.server.once('error', onError);
+options.server.once('listening', onListen);
 ...</pre></li>
     </ul>
 
@@ -558,7 +551,7 @@ options.server.once(&#x27;listening&#x27;, onListen);
     <ul>
     <li>description and source-code<pre class="apidocCodePre">nextSocket = function (socketPath) {
   var dir = path.dirname(socketPath),
-      name = path.basename(socketPath, &#x27;.sock&#x27;),
+      name = path.basename(socketPath, '.sock'),
       match = name.match(/^([a-zA-z]+)(\d*)$/i),
       index = parseInt(match[2]),
       base = match[1];
@@ -568,14 +561,14 @@ options.server.once(&#x27;listening&#x27;, onListen);
   }
 
   index += 1;
-  return path.join(dir, base + index + &#x27;.sock&#x27;);
+  return path.join(dir, base + index + '.sock');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
       }
     }
     else {
       //
-      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // This file exists, so it isn't possible to listen on it. Lets try
       // next socket.
       //
       options.path = exports.<span class="apidocCodeKeywordSpan">nextSocket</span>(options.path);
@@ -620,7 +613,7 @@ options.server.once(&#x27;listening&#x27;, onListen);
   if (options.host) {
 
     var hasUserGivenHost;
-    for (var i = 0; i &#x3c; exports._defaultHosts.length; i++) {
+    for (var i = 0; i &lt; exports._defaultHosts.length; i++) {
       if (exports._defaultHosts[i] === options.host) {
         hasUserGivenHost = true;
         break;
@@ -635,16 +628,16 @@ options.server.once(&#x27;listening&#x27;, onListen);
 
   var openPorts = [], currentHost;
   return async.eachSeries(exports._defaultHosts, function(host, next) {
-    debugGetPort(&#x22;in eachSeries() iteration callback: host is&#x22;, host);
+    debugGetPort("in eachSeries() iteration callback: host is", host);
 
     return internals.testPort({ host: host, port: options.port }, function(err, port) {
       if (err) {
-        debugGetPort(&#x22;in eachSeries() iteration callback testPort() callback&#x22;, &#x22;with an err:&#x22;, err.code);
+        debugGetPort("in eachSeries() iteration callback testPort() callback", "with an err:", err.code);
         currentHost = host;
         return next(err);
       } else {
-        debugGetPort(&#x22;in eachSeries() iteration callback testPort() callback&#x22;,
-                    &#x22;with a success for port&#x22;, port);
+        debugGetPort("in eachSeries() iteration callback testPort() callback",
+                    "with a success for port", port);
         openPorts.push(port);
         return next();
       }
@@ -652,17 +645,17 @@ options.server.once(&#x27;listening&#x27;, onListen);
   }, function(err) {
 
     if (err) {
-      debugGetPort(&#x22;in eachSeries() result callback: err is&#x22;, err);
+      debugGetPort("in eachSeries() result callback: err is", err);
       // If we get EADDRNOTAVAIL it means the host is not bindable, so remove it
       // from exports._defaultHosts and start over. For ubuntu, we use EINVAL for the same
-      if (err.code === &#x27;EADDRNOTAVAIL&#x27; || err.code === &#x27;EINVAL&#x27;) {
+      if (err.code === 'EADDRNOTAVAIL' || err.code === 'EINVAL') {
         if (options.host === currentHost) {
           // if bad address matches host given by user, tell them
           //
           // NOTE: We may need to one day handle `my-non-existent-host.local` if users
           // report frustration with passing in hostnames that DONT map to bindable
           // hosts, without showing them a good error.
-          var msg = &#x27;Provided host &#x27; + options.host + &#x27; could NOT be bound. Please provide a different host address or hostname&#x27;;
+          var msg = 'Provided host ' + options.host + ' could NOT be bound. Please provide a different host address or hostname';
           return callback(Error(msg));
         }
 
@@ -680,13 +673,13 @@ options.server.once(&#x27;listening&#x27;, onListen);
       return a - b;
     });
 
-    debugGetPort(&#x22;in eachSeries() result callback: openPorts is&#x22;, openPorts);
+    debugGetPort("in eachSeries() result callback: openPorts is", openPorts);
 
     if (openPorts[0] === openPorts[openPorts.length-1]) {
       // if first === last, we found an open port
       return callback(null, openPorts[0]);
     } else {
-      // otherwise, try again, using sorted port, aka, highest open for &#x3e;= 1 host
+      // otherwise, try again, using sorted port, aka, highest open for &gt;= 1 host
       return exports.getPort({ port: openPorts.pop(), host: options.host }, callback);
     }
 
@@ -698,7 +691,7 @@ options.server.once(&#x27;listening&#x27;, onListen);
 The `portfinder` module has a simple interface:
 
 ``` js
-  var portfinder = require(&#x27;portfinder&#x27;);
+  var portfinder = require('portfinder');
 
   portfinder.<span class="apidocCodeKeywordSpan">getPort</span>(function (err, port) {
     //
@@ -720,9 +713,9 @@ The `portfinder` module has a simple interface:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getPortPromise = function (options) {
-  if (typeof Promise !== &#x27;function&#x27;) {
-    throw Error(&#x27;Native promise support is not available in this version of node.&#x27; +
-      &#x27;Please install a polyfill and assign Promise to global.Promise before calling this method&#x27;);
+  if (typeof Promise !== 'function') {
+    throw Error('Native promise support is not available in this version of node.' +
+      'Please install a polyfill and assign Promise to global.Promise before calling this method');
   }
   if (!options) {
     options = {};
@@ -742,16 +735,16 @@ The `portfinder` module has a simple interface:
 Or with promise (if Promise are supported) :
 
 ``` js
-const portfinder = require(&#x27;portfinder&#x27;);
+const portfinder = require('portfinder');
 
 portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
-  .then((port) =&#x3e; {
+  .then((port) =&gt; {
       //
       // `port` is guaranteed to be a free port
       // in this scope.
       //
   })
-  .catch((err) =&#x3e; {
+  .catch((err) =&gt; {
 ...</pre></li>
     </ul>
 
@@ -805,7 +798,7 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   }
 
   options.mod  = options.mod    || parseInt(755, 8);
-  options.path = options.path   || exports.basePath + &#x27;.sock&#x27;;
+  options.path = options.path   || exports.basePath + '.sock';
 
   //
   // Tests the specified socket
@@ -813,11 +806,11 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   function testSocket () {
     fs.stat(options.path, function (err) {
       //
-      // If file we&#x27;re checking doesn&#x27;t exist (thus, stating it emits ENOENT),
+      // If file we're checking doesn't exist (thus, stating it emits ENOENT),
       // we should be OK with listening on this socket.
       //
       if (err) {
-        if (err.code == &#x27;ENOENT&#x27;) {
+        if (err.code == 'ENOENT') {
           callback(null, options.path);
         }
         else {
@@ -826,7 +819,7 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
       }
       else {
         //
-        // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+        // This file exists, so it isn't possible to listen on it. Lets try
         // next socket.
         //
         options.path = exports.nextSocket(options.path);
@@ -882,7 +875,7 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
     }
     else {
       //
-      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // This file exists, so it isn't possible to listen on it. Lets try
       // next socket.
       //
       options.path = exports.nextSocket(options.path);
@@ -910,9 +903,9 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   return port + 1;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  options.server.removeListener(&#x27;listening&#x27;, onListen);
+  options.server.removeListener('listening', onListen);
 
-  if (err.code !== &#x27;EADDRINUSE&#x27; &#x26;&#x26; err.code !== &#x27;EACCES&#x27;) {
+  if (err.code !== 'EADDRINUSE' &amp;&amp; err.code !== 'EACCES') {
     return callback(err);
   }
 
@@ -923,8 +916,8 @@ portfinder.<span class="apidocCodeKeywordSpan">getPortPromise</span>()
   }, callback);
 }
 
-options.server.once(&#x27;error&#x27;, onError);
-options.server.once(&#x27;listening&#x27;, onListen);
+options.server.once('error', onError);
+options.server.once('listening', onListen);
 ...</pre></li>
     </ul>
 
@@ -939,7 +932,7 @@ options.server.once(&#x27;listening&#x27;, onListen);
     <ul>
     <li>description and source-code<pre class="apidocCodePre">nextSocket = function (socketPath) {
   var dir = path.dirname(socketPath),
-      name = path.basename(socketPath, &#x27;.sock&#x27;),
+      name = path.basename(socketPath, '.sock'),
       match = name.match(/^([a-zA-z]+)(\d*)$/i),
       index = parseInt(match[2]),
       base = match[1];
@@ -949,14 +942,14 @@ options.server.once(&#x27;listening&#x27;, onListen);
   }
 
   index += 1;
-  return path.join(dir, base + index + &#x27;.sock&#x27;);
+  return path.join(dir, base + index + '.sock');
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
       }
     }
     else {
       //
-      // This file exists, so it isn&#x27;t possible to listen on it. Lets try
+      // This file exists, so it isn't possible to listen on it. Lets try
       // next socket.
       //
       options.path = exports.<span class="apidocCodeKeywordSpan">nextSocket</span>(options.path);
@@ -985,3 +978,4 @@ options.server.once(&#x27;listening&#x27;, onListen);
     ]
 </div>
 </div>
+</body></html>
